@@ -1,0 +1,24 @@
+# Зависимости
+node_modules
+package-lock.json
+
+# Сборка
+dist
+build
+
+# Кэш
+.cache
+*.log
+
+# IDE
+.vscode
+.idea
+
+# Другое
+coverage
+.env
+
+# CI отчеты
+*-report.json
+*-report.txt
+coverage/
