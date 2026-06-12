@@ -1,8 +1,15 @@
 import { FastifyInstance } from 'fastify';
+import { prisma } from '@shared/db/prisma';
 
 export async function authRoutes(app: FastifyInstance) {
-    const testHandler = (req, repl) => {
-        reply.send({ hello: 'world' });
+    const testHandler = async (req, reply) => {
+        const newUser = await prisma.user.create({
+            data: {
+                name: 'Alice',
+                email: 'alice@prisma.io',
+            },
+        });
+        reply.send({ userName: newUser.name });
     };
     app.get('/', testHandler);
 

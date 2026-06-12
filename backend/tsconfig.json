@@ -10,7 +10,8 @@
         "skipLibCheck": true,
         "paths": {
             "@shared/*": ["./src/shared/*"],
-            "@modules/*": ["./src/modules/*"]
+            "@modules/*": ["./src/modules/*"],
+            "@/*": ["./src/*"]
         }
     },
     "include": ["src"]
