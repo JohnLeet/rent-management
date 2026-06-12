@@ -1,0 +1,40 @@
+{
+    "name": "backend",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "dev": "tsx watch src/app/server.ts",
+        "build": "tsup src/app/server.ts --format cjs --dts",
+        "start": "node dist/server.js",
+        "db:push": "prisma db push",
+        "db:migrate": "prisma migrate dev",
+        "db:studio": "prisma studio",
+        "types:export": "tsx src/shared/types/export.ts"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "type": "module",
+    "dependencies": {
+        "@fastify/cookie": "^11.0.2",
+        "@fastify/cors": "^11.2.0",
+        "@fastify/helmet": "^13.0.2",
+        "@fastify/jwt": "^10.1.0",
+        "@fastify/multipart": "^10.0.0",
+        "@prisma/client": "^7.8.0",
+        "bcryptjs": "^3.0.3",
+        "dotenv": "^17.4.2",
+        "fastify": "^5.8.5",
+        "zod": "^4.4.3",
+        "zod-to-json-schema": "^3.25.2"
+    },
+    "devDependencies": {
+        "@types/bcryptjs": "^2.4.6",
+        "@types/node": "^24.13.2",
+        "prisma": "^7.8.0",
+        "tsup": "^8.5.1",
+        "tsx": "^4.22.4",
+        "typescript": "^6.0.3"
+    }
+}
