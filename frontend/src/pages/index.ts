@@ -1,3 +1,6 @@
-export { HomePage } from '@pages/HomePage';
-export { NotFoundPage } from '@pages/NotFoundPage';
-export { ListingsPage } from '@pages/ListingsPage';
+export * from './HomePage';
+export * from './NotFoundPage';
+export * from './ListingsPage';
+export * from './LoginPage';
+export * from './ProfilePage';
+export * from './RegistrationPage';

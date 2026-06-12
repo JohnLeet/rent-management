@@ -1,6 +1,6 @@
 import { MainLayout } from '@layouts';
 import { HomePage, ListingsPage, NotFoundPage } from '@pages';
-import { PATHS } from '@router';
+import { PATHS } from '../paths';
 
 export const publicRoutes = [
     {
