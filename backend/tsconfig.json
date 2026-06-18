@@ -11,7 +11,9 @@
         "paths": {
             "@shared/*": ["./src/shared/*"],
             "@modules/*": ["./src/modules/*"],
-            "@/*": ["./src/*"]
+            "@/*": ["./src/*"],
+            "@common/*": ["../common/*"],
+            "@schemas/*": ["../common/schemas/*"]
         }
     },
     "include": ["src"]

@@ -1,56 +1,36 @@
 // В контроллере после успешного login:
-import type { FastifyReply, FastifyRequest } from 'fastify';
 import { authService } from './auth.service';
-import type { LoginInput, RegisterInput } from './auth.schema';
+import { generateTokens } from './auth.tokens';
+import { setAuthCookies } from './auth.cookies';
+import { prisma } from '@shared/db/prisma';
+import { AppError } from '@shared/errors/AppError';
+
+import type { FastifyReply, FastifyRequest } from 'fastify';
+import type { AuthLoginDTO, AuthRegistrationDTO } from './auth.schema';
 
 export const authController = {
-    async register(req: FastifyRequest<{ Body: RegisterInput }>, reply: FastifyReply) {
-        const user = await authService.register(req.body);
-        const token = await reply.jwtSign({ id: user.id, role: user.role });
-        return reply.code(201).send({ token, user });
+    async register(req: FastifyRequest<{ Body: AuthRegistrationDTO }>, reply: FastifyReply) {
+        const data = req.body;
+        const exists = await prisma.user.findUnique({
+            where: { email: data.email },
+        });
+        if (exists) throw new AppError('Email already taken', 409);
+        const user = await authService.register(data);
+
+        const tokens = await generateTokens(req.server.jwt.sign, user);
+
+        return setAuthCookies(reply, ...tokens)
+            .code(201)
+            .send({ user });
     },
-    //TODO How to work with cookies?
-    async login(req: FastifyRequest<{ Body: LoginInput }>, reply: FastifyReply) {
+
+    async login(req: FastifyRequest<{ Body: AuthLoginDTO }>, reply: FastifyReply) {
         const user = await authService.login(req.body);
 
-        // В контроллере после успешного login:
-        const accessToken = await reply.jwtSign({ id: user.id, role: user.role });
+        const tokens = await generateTokens(req.server.jwt.sign, user);
 
-        reply
-            .setCookie('access_token', accessToken, {
-                httpOnly: true, // недоступен из JS
-                secure: process.env.NODE_ENV === 'production',
-                sameSite: 'strict', // защита от CSRF
-                path: '/',
-                maxAge: 15 * 60, // 15 минут (в секундах)
-            })
-            .setCookie('refresh_token', refreshToken, {
-                httpOnly: true,
-                secure: process.env.NODE_ENV === 'production',
-                sameSite: 'strict',
-                path: '/api/v1/auth/refresh', // только для /refresh!
-                maxAge: 7 * 24 * 60 * 60, // 7 дней
-            })
+        return setAuthCookies(reply, ...tokens)
+            .code(201)
             .send({ user });
-        return reply.send({ token, user });
     },
 };
-const accessToken = await reply.jwtSign({ id: user.id, role: user.role });
-
-reply
-    .setCookie('access_token', accessToken, {
-        httpOnly: true, // недоступен из JS
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'strict', // защита от CSRF
-        path: '/',
-        maxAge: 15 * 60, // 15 минут (в секундах)
-    })
-    //TODO
-    .setCookie('refresh_token', refreshToken, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'strict',
-        path: '/api/v1/auth/refresh', // только для /refresh!
-        maxAge: 7 * 24 * 60 * 60, // 7 дней
-    })
-    .send({ user });
