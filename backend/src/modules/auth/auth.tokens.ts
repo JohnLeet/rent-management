@@ -1,5 +1,5 @@
 import type { FastifyReply } from 'fastify';
-import { JwtPayload } from 'auth.schema';
+import { JwtPayload } from './auth.schema';
 
 export const generateTokens = async (jwtSign: FastifyReply['jwtSign'], user) => {
     const payload: JwtPayload = {

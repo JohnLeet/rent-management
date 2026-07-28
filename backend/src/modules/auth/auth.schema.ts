@@ -1,5 +1,8 @@
 import { AuthLoginSchema, AuthRegistrationSchema } from '@schemas/auth';
-import { Role } from '@/prisma/prisma-client/enums';
+import type { Role } from '@/prisma/prisma-client/enums';
+
+export type { AuthRegistrationDTO, AuthLoginDTO } from '@schemas/auth';
+export type { Role } from '@/prisma/prisma-client/enums';
 
 export const registrationApiSchema = {
     summary: 'Registration new user',
@@ -10,7 +13,6 @@ export const loginApiSchema = {
     body: AuthLoginSchema,
 };
 
-export type { AuthRegistrationDTO, AuthLoginDTO } from '@schemas/auth';
 export { AuthLoginSchema, AuthRegistrationSchema };
 
 export const userSelect = {
@@ -29,4 +31,3 @@ export interface JwtPayload {
     role: Role;
     email: string;
 }
-export type { Role } from '@/prisma/prisma-client/enums';

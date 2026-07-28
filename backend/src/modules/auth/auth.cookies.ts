@@ -1,14 +1,15 @@
 import type { FastifyReply } from 'fastify';
-import { ACCESS_TOKEN_KEY, API_VERSION, REFRESH_TOKEN_KEY } from '@shared/constants';
+import { ACCESS_TOKEN_KEY, REFRESH_TOKEN_KEY } from '@shared/constants';
+import { API_VERSION } from '@common/constants';
 
 const cookieOptions = {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
-    sameSite: 'strict' as const,
+    sameSite: 'lax' as const,
 };
 
-export const setAuthCookies = (reply: FastifyReply, accessToken: string, refreshToken: string) => {
-    return setAccessTokenCookies(reply, accessToken).setCookie(REFRESH_TOKEN_KEY, refreshToken, {
+export const setRefreshTokenCookies = (reply: FastifyReply, refreshToken: string) => {
+    return reply.setCookie(REFRESH_TOKEN_KEY, refreshToken, {
         ...cookieOptions,
         path: `${API_VERSION}/auth/refresh`,
         maxAge: 7 * 24 * 60 * 60,

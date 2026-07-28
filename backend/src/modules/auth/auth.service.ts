@@ -1,7 +1,12 @@
 import { prisma } from '@shared/db/prisma';
 import { AppError } from '@shared/errors/AppError';
 import bcrypt from 'bcryptjs';
-import { AuthLoginDTO, AuthRegistrationDTO, UserResponseDTO, userSelect } from './auth.schema';
+import {
+    type AuthLoginDTO,
+    type AuthRegistrationDTO,
+    UserResponseDTO,
+    userSelect,
+} from './auth.schema';
 
 export const authService = {
     async register(data: AuthRegistrationDTO): Promise<UserResponseDTO> {
