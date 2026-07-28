@@ -10,7 +10,7 @@ export const AuthGuard = ({ children }: Props) => {
     const { isAuthenticated } = useAuth();
 
     if (!isAuthenticated) {
-        return <Navigate to={PATHS.LOGIN} replace />;
+        return <Navigate to={PATHS.AUTH} replace />;
     }
 
     return children;

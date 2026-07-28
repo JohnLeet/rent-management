@@ -1,1 +1,2 @@
-export * from './hooks';
+export * from './auth.hooks';
+export * from './components/AuthForm';

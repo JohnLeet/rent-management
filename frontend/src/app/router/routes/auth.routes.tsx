@@ -1,21 +1,13 @@
 import { PATHS } from '../paths';
-import { LoginPage, RegistrationPage } from '@pages';
+import { AuthPage } from '@pages';
 import { GuestGuard } from '../guards';
 
 export const authRoutes = [
     {
-        path: PATHS.LOGIN,
+        path: PATHS.AUTH,
         element: (
             <GuestGuard>
-                <LoginPage />
-            </GuestGuard>
-        ),
-    },
-    {
-        path: PATHS.REGISTRATION,
-        element: (
-            <GuestGuard>
-                <RegistrationPage />
+                <AuthPage />
             </GuestGuard>
         ),
     },

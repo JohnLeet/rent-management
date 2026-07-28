@@ -1,6 +1,5 @@
 export * from './HomePage';
 export * from './NotFoundPage';
 export * from './ListingsPage';
-export * from './LoginPage';
+export * from './AuthPage';
 export * from './ProfilePage';
-export * from './RegistrationPage';
