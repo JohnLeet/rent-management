@@ -1,5 +1,4 @@
-export { AuthRegistrationSchema } from './auth.registration.schema';
-export { AuthLoginSchema } from './auth.login.schema';
+export { AuthRegistrationSchema, type AuthRegistrationDTO } from './auth.registration.schema';
+export { AuthLoginSchema, type AuthLoginDTO } from './auth.login.schema';
 
-export type { AuthRegistrationDTO } from './auth.registration.schema';
-export type { AuthLoginDTO } from './auth.login.schema';
+export type AuthFormValues = AuthLoginDTO | AuthRegistrationDTO;
